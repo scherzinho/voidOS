@@ -1,0 +1,618 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased}
+:root{
+--red:#c0392b;--red-bright:#e74c3c;--red-glow:#ff2d20;--red-dim:#7a1f17;
+--bg:#080808;--bg2:#111;--bg3:#1a1a1a;--bg4:#222;
+--border:#2a2a2a;--border-red:rgba(192,57,43,0.4);
+--text:#e8e8e8;--muted:#555;--muted2:#888;
+--accent:#c0392b;--font:'Syne',sans-serif;--mono:'JetBrains Mono',monospace;
+--win-radius:12px;--ctrl-close:#ff5f56;--ctrl-min:#febc2e;--ctrl-max:#28c840;
+}
+#void-root{width:100%;height:620px;background:var(--bg);font-family:var(--font);position:relative;overflow:hidden;border-radius:10px;border:1px solid #1a1a1a;cursor:default}
+
+/* --- WALLPAPER --- */
+#wp{position:absolute;inset:0;z-index:0;
+background:radial-gradient(ellipse 80% 60% at 50% 110%,rgba(192,57,43,0.18) 0%,transparent 70%),
+radial-gradient(ellipse 40% 40% at 15% 20%,rgba(120,10,10,0.12) 0%,transparent 60%),
+#080808}
+.wp-lines{position:absolute;inset:0;
+background-image:linear-gradient(rgba(192,57,43,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(192,57,43,0.04) 1px,transparent 1px);
+background-size:48px 48px}
+.wp-orb{position:absolute;width:300px;height:300px;border-radius:50%;
+background:radial-gradient(circle,rgba(192,57,43,0.06) 0%,transparent 70%);
+bottom:-80px;left:50%;transform:translateX(-50%);pointer-events:none}
+
+/* --- LOGIN SCREEN --- */
+#login-screen{position:absolute;inset:0;z-index:500;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--bg)}
+#ls-wp{position:absolute;inset:0;
+background:radial-gradient(ellipse 90% 70% at 50% 100%,rgba(192,57,43,0.22) 0%,transparent 65%),
+radial-gradient(ellipse 50% 40% at 80% 10%,rgba(100,10,10,0.15) 0%,transparent 55%),#080808}
+.ls-grid{position:absolute;inset:0;
+background-image:linear-gradient(rgba(192,57,43,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(192,57,43,0.05) 1px,transparent 1px);
+background-size:40px 40px}
+
+.ls-time-block{position:relative;z-index:2;text-align:center;margin-bottom:40px;animation:fadeUp .8s ease both}
+.ls-day{font-size:13px;color:var(--muted2);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;font-weight:400}
+.ls-time{font-size:64px;font-weight:800;color:white;letter-spacing:-3px;line-height:1;font-family:var(--font)}
+.ls-date{font-size:13px;color:var(--muted2);margin-top:6px;letter-spacing:0.5px}
+
+.ls-users{position:relative;z-index:2;display:flex;gap:28px;margin-bottom:0;animation:fadeUp .8s .15s ease both;opacity:0;animation-fill-mode:forwards}
+.ls-user{display:flex;flex-direction:column;align-items:center;gap:10px;cursor:pointer;padding:14px 20px;border-radius:16px;transition:background .2s;position:relative}
+.ls-user:hover{background:rgba(192,57,43,0.08)}
+.ls-user.selected{background:rgba(192,57,43,0.12)}
+
+.user-avatar{width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;font-family:var(--font);border:2px solid transparent;transition:border-color .2s;position:relative}
+.ls-user.selected .user-avatar{border-color:var(--red-bright);box-shadow:0 0 20px rgba(231,76,60,0.3)}
+.user-name{font-size:13px;color:var(--text);font-weight:500;letter-spacing:0.3px}
+
+/* password panel */
+.pwd-panel{position:relative;z-index:2;margin-top:24px;display:flex;flex-direction:column;align-items:center;gap:12px;animation:fadeUp .4s ease both;width:240px}
+.pwd-label{font-size:11px;color:var(--muted2);letter-spacing:1px;text-transform:uppercase}
+.pwd-input-wrap{width:100%;position:relative}
+#pwd-input{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:24px;padding:10px 44px 10px 18px;color:white;font-family:var(--mono);font-size:14px;outline:none;text-align:center;letter-spacing:3px;transition:border-color .2s,box-shadow .2s}
+#pwd-input:focus{border-color:var(--red-bright);box-shadow:0 0 0 3px rgba(231,76,60,0.15)}
+.pwd-enter-btn{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:30px;height:30px;border-radius:50%;background:var(--red);border:none;color:white;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;transition:background .15s}
+.pwd-enter-btn:hover{background:var(--red-bright)}
+.pwd-hint{font-size:10px;color:var(--muted);font-family:var(--mono)}
+
+/* --- MENUBAR --- */
+#menubar{position:absolute;top:0;left:0;right:0;height:26px;background:rgba(8,8,8,0.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(192,57,43,0.12);display:flex;align-items:center;padding:0 14px;z-index:100;gap:0}
+.mb-logo{font-size:13px;font-weight:800;color:var(--red-bright);font-family:var(--font);letter-spacing:-0.5px;margin-right:14px;cursor:pointer}
+.mb-void{color:white}
+.mb-menus{display:flex;gap:0}
+.mb-menu{font-size:11px;color:rgba(255,255,255,0.75);padding:0 8px;height:26px;display:flex;align-items:center;cursor:pointer;border-radius:4px;transition:background .1s;letter-spacing:0.2px}
+.mb-menu:hover{background:rgba(192,57,43,0.15);color:white}
+.mb-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.mb-right-item{font-size:10px;color:var(--muted2);cursor:pointer;transition:color .15s}
+.mb-right-item:hover{color:white}
+.mb-status{display:flex;align-items:center;gap:5px}
+.mb-dot{width:5px;height:5px;border-radius:50%;background:var(--red-bright);box-shadow:0 0 4px var(--red-bright)}
+#mb-clock{font-size:11px;color:rgba(255,255,255,0.7);font-family:var(--mono)}
+
+/* --- DESKTOP --- */
+#desktop{position:absolute;top:26px;left:0;right:0;bottom:62px;z-index:1;padding:14px}
+.desk-icons{position:absolute;right:14px;top:14px;display:flex;flex-direction:column;gap:10px}
+.desk-icon{display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;padding:7px 5px;border-radius:10px;width:70px;transition:background .15s}
+.desk-icon:hover{background:rgba(192,57,43,0.1)}
+.di-icon-box{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px}
+.di-folder{background:linear-gradient(145deg,rgba(192,57,43,0.25),rgba(80,15,15,0.6));border:1px solid var(--border-red)}
+.di-file{background:linear-gradient(145deg,rgba(40,40,40,0.9),rgba(20,20,20,0.9));border:1px solid var(--border)}
+.di-label{font-size:9px;color:rgba(255,255,255,0.8);text-align:center;text-shadow:0 1px 4px rgba(0,0,0,0.9)}
+
+/* --- WINDOWS --- */
+.os-window{position:absolute;background:rgba(14,14,14,0.97);border:1px solid rgba(60,60,60,0.6);border-radius:var(--win-radius);overflow:hidden;display:none;flex-direction:column;z-index:50;box-shadow:0 32px 64px rgba(0,0,0,0.7),0 0 0 0.5px rgba(255,255,255,0.04)}
+.os-window.visible{display:flex}
+.os-window.focused{z-index:60;border-color:rgba(192,57,43,0.25);box-shadow:0 32px 64px rgba(0,0,0,0.8),0 0 0 0.5px rgba(192,57,43,0.1)}
+
+.win-tb{height:36px;background:rgba(18,18,18,0.98);border-bottom:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;padding:0 12px;gap:8px;cursor:move;user-select:none;flex-shrink:0}
+.win-ctrls{display:flex;gap:7px}
+.wc{width:12px;height:12px;border-radius:50%;cursor:pointer;border:none;flex-shrink:0;transition:filter .1s}
+.wc:hover{filter:brightness(1.25)}
+.wc-c{background:var(--ctrl-close)}.wc-m{background:var(--ctrl-min)}.wc-x{background:var(--ctrl-max)}
+.win-title{flex:1;text-align:center;font-size:11px;color:var(--muted);font-family:var(--font);pointer-events:none;letter-spacing:0.3px}
+
+/* FINDER */
+#finder-win{width:580px;height:380px;top:40px;left:36px}
+.finder-body{display:flex;flex:1;overflow:hidden}
+.finder-sb{width:186px;background:rgba(10,10,10,0.95);border-right:1px solid rgba(255,255,255,0.05);padding:10px 0;overflow-y:auto;flex-shrink:0}
+.sb-head{font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;padding:8px 14px 4px;font-family:var(--mono)}
+.sb-item{display:flex;align-items:center;gap:8px;padding:5px 10px;margin:1px 6px;font-size:11px;color:rgba(255,255,255,0.65);cursor:pointer;border-radius:6px;transition:all .12s}
+.sb-item:hover{background:rgba(192,57,43,0.1);color:rgba(255,255,255,0.9)}
+.sb-item.active{background:rgba(192,57,43,0.18);color:var(--red-bright)}
+.sb-icon{font-size:12px;width:16px;text-align:center;flex-shrink:0}
+.finder-main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.finder-tb{height:34px;background:rgba(16,16,16,0.98);border-bottom:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;padding:0 12px;gap:8px;flex-shrink:0}
+.path-pill{background:rgba(192,57,43,0.12);border:1px solid var(--border-red);border-radius:20px;padding:3px 10px;font-size:10px;color:var(--red-bright);font-family:var(--mono)}
+.finder-actions{margin-left:auto;display:flex;gap:6px}
+.fa-btn{font-size:10px;background:rgba(192,57,43,0.12);border:1px solid var(--border-red);border-radius:6px;padding:4px 10px;color:var(--red-bright);cursor:pointer;font-family:var(--font);font-weight:500;transition:all .12s}
+.fa-btn:hover{background:rgba(192,57,43,0.25);border-color:var(--red-bright)}
+.finder-grid{flex:1;padding:10px;overflow-y:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));align-content:start;gap:4px}
+.fi-item{display:flex;flex-direction:column;align-items:center;gap:5px;padding:7px 4px;border-radius:8px;cursor:pointer;transition:background .12s}
+.fi-item:hover{background:rgba(192,57,43,0.08)}
+.fi-item.sel{background:rgba(192,57,43,0.16)}
+.fi-box{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:19px}
+.fi-box-f{background:linear-gradient(145deg,rgba(192,57,43,0.3),rgba(80,15,15,0.7));border:1px solid rgba(192,57,43,0.3)}
+.fi-box-t{background:linear-gradient(145deg,rgba(30,30,30,.9),rgba(15,15,15,.9));border:1px solid rgba(255,255,255,0.07)}
+.fi-lbl{font-size:9px;color:rgba(255,255,255,0.7);text-align:center;max-width:72px;word-break:break-all;line-height:1.3}
+
+/* EDITOR */
+#editor-win{width:500px;height:360px;top:110px;left:130px}
+.ed-bar{height:34px;background:rgba(16,16,16,.98);border-bottom:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;padding:0 12px;gap:8px;flex-shrink:0}
+.ed-btn{font-size:10px;color:var(--muted2);background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:5px;padding:3px 9px;cursor:pointer;font-family:var(--font);transition:all .12s}
+.ed-btn:hover{border-color:var(--red);color:var(--red-bright)}
+.ed-stat{margin-left:auto;font-size:9px;color:var(--muted);font-family:var(--mono)}
+.ed-area{flex:1;display:flex;overflow:hidden}
+.ln-nums{width:38px;background:rgba(8,8,8,.6);border-right:1px solid rgba(255,255,255,0.04);padding:10px 0;text-align:right;font-size:11px;color:var(--muted);font-family:var(--mono);line-height:1.75;overflow:hidden;flex-shrink:0;user-select:none}
+.ln-nums div{padding-right:8px}
+#ed-ta{flex:1;background:transparent;border:none;outline:none;color:#d4d4d4;font-family:var(--mono);font-size:12px;line-height:1.75;padding:10px 14px;resize:none;caret-color:var(--red-bright)}
+
+/* TERMINAL */
+#term-win{width:460px;height:300px;top:55px;left:230px}
+.term-body{flex:1;background:#050505;padding:12px 16px;overflow-y:auto;font-family:var(--mono);font-size:12px;line-height:1.65}
+.t-line{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:1px}
+.t-ps{color:var(--red-bright)}.t-path{color:#7ec8e3}.t-cmd{color:#e8e8e8}.t-out{color:#666}.t-err{color:#ff6b6b}.t-ok{color:#50fa7b}
+.t-input-row{display:flex;align-items:center;gap:6px;margin-top:2px}
+#ti{flex:1;background:transparent;border:none;outline:none;color:white;font-family:var(--mono);font-size:12px;caret-color:var(--red-bright)}
+
+/* CONTEXT MENU */
+#ctx{position:absolute;background:rgba(20,20,20,0.97);border:1px solid rgba(60,60,60,0.7);border-radius:10px;padding:5px;z-index:200;display:none;min-width:170px;box-shadow:0 16px 40px rgba(0,0,0,0.7),0 0 0 0.5px rgba(192,57,43,0.1);backdrop-filter:blur(20px)}
+#ctx.v{display:block}
+.ctx-it{padding:7px 13px;font-size:11px;color:rgba(255,255,255,0.75);cursor:pointer;border-radius:6px;display:flex;align-items:center;gap:9px;font-family:var(--font);transition:all .1s}
+.ctx-it:hover{background:rgba(192,57,43,0.15);color:white}
+.ctx-ico{font-size:12px;width:14px;flex-shrink:0}
+.ctx-sep{height:1px;background:rgba(255,255,255,0.06);margin:4px 0}
+
+/* DIALOG */
+#dlg-ov{position:absolute;inset:0;background:rgba(0,0,0,0.6);z-index:300;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+#dlg-ov.v{display:flex}
+.os-dlg{background:rgba(20,20,20,0.98);border:1px solid rgba(192,57,43,0.25);border-radius:14px;padding:22px;width:300px;box-shadow:0 32px 64px rgba(0,0,0,0.9),0 0 0 1px rgba(192,57,43,0.08)}
+.dlg-title{font-size:14px;font-weight:700;color:white;margin-bottom:14px}
+.dlg-inp{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:9px 12px;color:white;font-family:var(--mono);font-size:12px;outline:none;margin-bottom:16px;transition:border-color .15s}
+.dlg-inp:focus{border-color:var(--red-bright);box-shadow:0 0 0 3px rgba(231,76,60,0.1)}
+.dlg-btns{display:flex;gap:8px;justify-content:flex-end}
+.db-c{padding:7px 16px;font-size:11px;background:none;border:1px solid var(--border);color:var(--muted2);border-radius:7px;cursor:pointer;font-family:var(--font);transition:all .12s}
+.db-c:hover{border-color:var(--muted2);color:white}
+.db-ok{padding:7px 16px;font-size:11px;background:var(--red);border:none;color:white;border-radius:7px;cursor:pointer;font-family:var(--font);font-weight:600;transition:all .12s}
+.db-ok:hover{background:var(--red-bright)}
+
+/* NOTIFICATION */
+#notif{position:absolute;top:34px;right:14px;background:rgba(20,20,20,0.97);border:1px solid rgba(192,57,43,0.2);border-radius:12px;padding:12px 16px;z-index:400;display:none;font-size:11px;color:white;box-shadow:0 12px 32px rgba(0,0,0,0.5);min-width:210px;backdrop-filter:blur(20px)}
+.notif-t{font-weight:700;color:var(--red-bright);margin-bottom:3px;font-size:10px;text-transform:uppercase;letter-spacing:0.5px}
+
+/* USER BADGE in menubar */
+#mb-user{font-size:10px;color:rgba(255,255,255,0.6);background:rgba(192,57,43,0.12);border:1px solid var(--border-red);border-radius:10px;padding:2px 8px;cursor:pointer;font-family:var(--font);transition:all .12s}
+#mb-user:hover{background:rgba(192,57,43,0.2);color:white}
+
+/* DOCK */
+#dock{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);height:52px;background:rgba(14,14,14,0.88);backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,0.07);border-radius:18px;display:flex;align-items:center;padding:0 14px;gap:5px;z-index:100;box-shadow:0 8px 32px rgba(0,0,0,0.5),0 0 0 0.5px rgba(192,57,43,0.08)}
+.dk-item{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:19px;transition:transform .15s;position:relative}
+.dk-item:hover{transform:scale(1.2) translateY(-5px)}
+.dk-item.on::after{content:'';position:absolute;bottom:-7px;width:3px;height:3px;border-radius:50%;background:var(--red-bright)}
+.dk-sep{width:1px;height:26px;background:rgba(255,255,255,0.08);margin:0 3px}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:3px;height:3px}
+::-webkit-scrollbar-thumb{background:rgba(192,57,43,0.3);border-radius:2px}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+</style>
+
+<div id="void-root">
+  <div id="wp"><div class="wp-lines"></div><div class="wp-orb"></div></div>
+
+  <!-- LOGIN SCREEN -->
+  <div id="login-screen">
+    <div id="ls-wp"></div><div class="ls-grid"></div>
+    <div class="ls-time-block">
+      <div class="ls-day" id="ls-day">Tue Apr 1</div>
+      <div class="ls-time" id="ls-time">00:00</div>
+      <div class="ls-date" id="ls-date">Tuesday, April 1</div>
+    </div>
+    <div class="ls-users" id="ls-users">
+      <div class="ls-user" id="u-0" onclick="selectUser(0)">
+        <div class="user-avatar" style="background:linear-gradient(145deg,#7a1f17,#c0392b)">V</div>
+        <div class="user-name">Void</div>
+      </div>
+      <div class="ls-user" id="u-1" onclick="selectUser(1)">
+        <div class="user-avatar" style="background:linear-gradient(145deg,#1a2a3a,#2d4a6a)">S</div>
+        <div class="user-name">Shadow</div>
+      </div>
+      <div class="ls-user" id="u-2" onclick="selectUser(2)">
+        <div class="user-avatar" style="background:linear-gradient(145deg,#1a3020,#2d6a3a)">G</div>
+        <div class="user-name">Ghost</div>
+      </div>
+      <div class="ls-user" id="u-3" onclick="selectUser(3)">
+        <div class="user-avatar" style="background:linear-gradient(145deg,#2a1a3a,#5a2d7a)">N</div>
+        <div class="user-name">Null</div>
+      </div>
+    </div>
+    <div class="pwd-panel" id="pwd-panel" style="display:none">
+      <div class="pwd-label" id="pwd-label">Senha</div>
+      <div class="pwd-input-wrap">
+        <input type="password" id="pwd-input" placeholder="••••••••" autocomplete="off" />
+        <button class="pwd-enter-btn" onclick="doLogin()">→</button>
+      </div>
+      <div class="pwd-hint" id="pwd-hint">dica: qualquer senha funciona</div>
+    </div>
+  </div>
+
+  <!-- MENUBAR -->
+  <div id="menubar">
+    <span class="mb-logo"><span style="color:var(--red-bright)">⬡</span> <span class="mb-void">VoidOS</span></span>
+    <div class="mb-menus">
+      <span class="mb-menu" onclick="toggleFinder()">Finder</span>
+      <span class="mb-menu" onclick="toggleTerm()">Terminal</span>
+      <span class="mb-menu" onclick="newEditor()">Editor</span>
+    </div>
+    <div class="mb-right">
+      <div class="mb-status"><div class="mb-dot"></div></div>
+      <div id="mb-user" onclick="doLogout()">▸ Sair</div>
+      <div id="mb-clock" class="mb-right-item">00:00</div>
+    </div>
+  </div>
+
+  <!-- DESKTOP -->
+  <div id="desktop" oncontextmenu="showCtx(event)">
+    <div class="desk-icons">
+      <div class="desk-icon" ondblclick="openFolderDesk('Desktop')">
+        <div class="di-icon-box di-folder">📁</div>
+        <span class="di-label">Desktop</span>
+      </div>
+      <div class="desk-icon" ondblclick="newEditor()">
+        <div class="di-icon-box di-file">📄</div>
+        <span class="di-label">novo.txt</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FINDER -->
+  <div class="os-window" id="finder-win" onmousedown="focusW('finder-win')">
+    <div class="win-tb" id="ftb">
+      <div class="win-ctrls">
+        <button class="wc wc-c" onclick="closeW('finder-win')"></button>
+        <button class="wc wc-m" onclick="closeW('finder-win')"></button>
+        <button class="wc wc-x"></button>
+      </div>
+      <div class="win-title">📁 <span id="finder-ttl">Home</span></div>
+    </div>
+    <div class="finder-body">
+      <div class="finder-sb" id="finder-sb"></div>
+      <div class="finder-main">
+        <div class="finder-tb">
+          <div class="path-pill" id="finder-path">~/Home/</div>
+          <div class="finder-actions">
+            <button class="fa-btn" onclick="openDlg('folder')">+ Pasta</button>
+            <button class="fa-btn" onclick="openDlg('file')">+ Arquivo</button>
+          </div>
+        </div>
+        <div class="finder-grid" id="finder-grid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EDITOR -->
+  <div class="os-window" id="editor-win" onmousedown="focusW('editor-win')">
+    <div class="win-tb" id="etb">
+      <div class="win-ctrls">
+        <button class="wc wc-c" onclick="closeW('editor-win')"></button>
+        <button class="wc wc-m" onclick="closeW('editor-win')"></button>
+        <button class="wc wc-x"></button>
+      </div>
+      <div class="win-title">📝 <span id="ed-fname">untitled.txt</span></div>
+    </div>
+    <div class="ed-bar">
+      <button class="ed-btn" onclick="saveFile()">salvar</button>
+      <button class="ed-btn" onclick="()=>navigator.clipboard?.writeText(document.getElementById('ed-ta').value)">copiar</button>
+      <span class="ed-stat" id="ed-stat">UTF-8 · LF</span>
+    </div>
+    <div class="ed-area">
+      <div class="ln-nums" id="lns"><div>1</div></div>
+      <textarea id="ed-ta" spellcheck="false" oninput="updateLines()"></textarea>
+    </div>
+  </div>
+
+  <!-- TERMINAL -->
+  <div class="os-window" id="term-win" onmousedown="focusW('term-win')">
+    <div class="win-tb" id="ttb">
+      <div class="win-ctrls">
+        <button class="wc wc-c" onclick="closeW('term-win')"></button>
+        <button class="wc wc-m" onclick="closeW('term-win')"></button>
+        <button class="wc wc-x"></button>
+      </div>
+      <div class="win-title" id="term-title">⬡ void-shell — root</div>
+    </div>
+    <div class="term-body" id="tbody">
+      <div class="t-line"><span class="t-out">VoidOS Terminal 3.0 — tipo 'help' para comandos</span></div>
+      <div class="t-line"><span class="t-out" style="color:#2a2a2a">████████████████████████████</span></div>
+      <div class="t-input-row">
+        <span class="t-ps" id="t-ps">root@void</span><span class="t-path">:~/Home$ </span>
+        <input type="text" id="ti" autocomplete="off" spellcheck="false" onkeydown="termKey(event)" />
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTEXT MENU -->
+  <div id="ctx">
+    <div class="ctx-it" onclick="openDlg('folder')"><span class="ctx-ico">📁</span>Nova Pasta</div>
+    <div class="ctx-it" onclick="openDlg('file')"><span class="ctx-ico">📄</span>Novo Arquivo</div>
+    <div class="ctx-sep"></div>
+    <div class="ctx-it" onclick="toggleFinder()"><span class="ctx-ico">🔍</span>Finder</div>
+    <div class="ctx-it" onclick="toggleTerm()"><span class="ctx-ico">⬡</span>Terminal</div>
+    <div class="ctx-sep"></div>
+    <div class="ctx-it" onclick="doLogout()"><span class="ctx-ico">🔒</span>Bloquear</div>
+  </div>
+
+  <!-- DIALOG -->
+  <div id="dlg-ov">
+    <div class="os-dlg">
+      <div class="dlg-title" id="dlg-t">Nova Pasta</div>
+      <input type="text" class="dlg-inp" id="dlg-i" placeholder="Digite o nome..." />
+      <div class="dlg-btns">
+        <button class="db-c" onclick="closeDlg()">Cancelar</button>
+        <button class="db-ok" onclick="confirmDlg()">Criar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTIFICATION -->
+  <div id="notif"><div class="notif-t" id="notif-t">VoidOS</div><div id="notif-m"></div></div>
+
+  <!-- DOCK -->
+  <div id="dock">
+    <div class="dk-item on" onclick="toggleFinder()" title="Finder">📁</div>
+    <div class="dk-item" onclick="toggleTerm()" title="Terminal">⬡</div>
+    <div class="dk-item" onclick="newEditor()" title="Editor">📝</div>
+    <div class="dk-sep"></div>
+    <div class="dk-item" onclick="doLogout()" title="Logout">🔒</div>
+  </div>
+</div>
+
+<script>
+// ---- USERS ----
+const USERS = {
+  'Void':   {color:'#c0392b',icon:'V',fs:{}},
+  'Shadow': {color:'#2d6aa0',icon:'S',fs:{}},
+  'Ghost':  {color:'#2d6a3a',icon:'G',fs:{}},
+  'Null':   {color:'#5a2d7a',icon:'N',fs:{}}
+};
+const USER_KEYS = Object.keys(USERS);
+let currentUser = null;
+let selUser = null;
+
+// Per-user FS
+function getFS(){
+  if(!currentUser) return {};
+  if(!USERS[currentUser].fs['Home']) USERS[currentUser].fs['Home']=[];
+  return USERS[currentUser].fs;
+}
+function getDir(d){const fs=getFS();if(!fs[d])fs[d]=[];return fs[d]}
+let curDir='Home';
+let editFile=null;
+let fileContents={};
+let dlgType='';
+
+// ---- LOGIN ----
+function updateLoginClock(){
+  const n=new Date();
+  const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const shortDays=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const d=n.getDate(),m=months[n.getMonth()],wd=days[n.getDay()],swd=shortDays[n.getDay()];
+  const h=String(n.getHours()).padStart(2,'0'),mi=String(n.getMinutes()).padStart(2,'0');
+  document.getElementById('ls-time').textContent=h+':'+mi;
+  document.getElementById('ls-day').textContent=swd+' '+m+' '+d;
+  document.getElementById('ls-date').textContent=wd+', '+m+' '+d;
+}
+updateLoginClock(); setInterval(updateLoginClock,10000);
+
+function selectUser(idx){
+  selUser=USER_KEYS[idx];
+  document.querySelectorAll('.ls-user').forEach((u,i)=>u.classList.toggle('selected',i===idx));
+  const pp=document.getElementById('pwd-panel');
+  pp.style.display='flex';
+  document.getElementById('pwd-label').textContent='Senha de '+selUser;
+  document.getElementById('pwd-hint').textContent='dica: qualquer senha funciona';
+  setTimeout(()=>document.getElementById('pwd-input').focus(),50);
+}
+document.getElementById('pwd-input').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()});
+function doLogin(){
+  if(!selUser)return;
+  const inp=document.getElementById('pwd-input');
+  if(inp.value.length<1){
+    inp.style.animation='shake 0.4s ease';
+    setTimeout(()=>inp.style.animation='',500);
+    return;
+  }
+  currentUser=selUser;
+  inp.value='';
+  // initialize FS defaults
+  const fs=getFS();
+  if(!fs['Home']||fs['Home'].length===0){
+    fs['Home']=[{n:'Documents',t:'folder'},{n:'Downloads',t:'folder'},{n:'notes.txt',t:'file',c:'# '+currentUser+'\nBem-vindo ao VoidOS.\n'}];
+    fs['Documents']=[];fs['Downloads']=[];
+  }
+  // enter OS
+  const ls=document.getElementById('login-screen');
+  ls.style.transition='opacity 0.6s';
+  ls.style.opacity='0';
+  setTimeout(()=>{ls.style.display='none';bootOS();},600);
+}
+function bootOS(){
+  document.getElementById('mb-user').textContent='▸ '+currentUser;
+  document.getElementById('term-title').textContent='⬡ void-shell — '+currentUser;
+  document.getElementById('t-ps').textContent=currentUser+'@void';
+  updateClock(); setInterval(updateClock,15000);
+  curDir='Home';
+  openW('finder-win'); renderDir();
+  showNotif('VoidOS','Bem-vindo, '+currentUser+'!');
+}
+function doLogout(){
+  closeW('finder-win');closeW('editor-win');closeW('term-win');
+  currentUser=null;selUser=null;
+  const ls=document.getElementById('login-screen');
+  ls.style.display='flex';ls.style.opacity='0';
+  ls.style.transition='opacity .5s';
+  setTimeout(()=>{ls.style.opacity='1';},10);
+  document.querySelectorAll('.ls-user').forEach(u=>u.classList.remove('selected'));
+  document.getElementById('pwd-panel').style.display='none';
+}
+
+// ---- CLOCK ----
+function updateClock(){
+  const n=new Date();
+  const t=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');
+  document.getElementById('mb-clock').textContent=t;
+}
+
+// ---- WINDOWS ----
+function openW(id){document.getElementById(id).classList.add('visible');focusW(id)}
+function closeW(id){document.getElementById(id).classList.remove('visible','focused')}
+function focusW(id){document.querySelectorAll('.os-window').forEach(w=>w.classList.remove('focused'));document.getElementById(id).classList.add('focused')}
+function toggleFinder(){const w=document.getElementById('finder-win');if(w.classList.contains('visible'))closeW('finder-win');else{openW('finder-win');renderDir()}}
+function toggleTerm(){const w=document.getElementById('term-win');if(w.classList.contains('visible'))closeW('term-win');else{openW('term-win');setTimeout(()=>document.getElementById('ti').focus(),50)}}
+function newEditor(){editFile=null;document.getElementById('ed-fname').textContent='untitled.txt';document.getElementById('ed-ta').value='';updateLines();openW('editor-win');setTimeout(()=>document.getElementById('ed-ta').focus(),50)}
+function openFileTxt(name,content){editFile=name;document.getElementById('ed-fname').textContent=name;document.getElementById('ed-ta').value=content||'';updateLines();openW('editor-win');setTimeout(()=>document.getElementById('ed-ta').focus(),50)}
+function openFolderDesk(d){navTo(d);openW('finder-win')}
+
+// ---- DRAG ----
+function drag(winId,tbId){
+  const win=document.getElementById(winId),tb=document.getElementById(tbId);
+  let dr=false,dx=0,dy=0;
+  tb.addEventListener('mousedown',e=>{dr=true;const r=win.getBoundingClientRect();dx=e.clientX-r.left;dy=e.clientY-r.top;win.style.right='auto';win.style.bottom='auto'});
+  document.addEventListener('mousemove',e=>{if(!dr)return;win.style.left=(e.clientX-dx)+'px';win.style.top=(e.clientY-dy)+'px'});
+  document.addEventListener('mouseup',()=>dr=false);
+}
+drag('finder-win','ftb');drag('editor-win','etb');drag('term-win','ttb');
+
+// ---- SIDEBAR ----
+function buildSidebar(){
+  const sb=document.getElementById('finder-sb');
+  const favs=[['Home','🏠'],['Desktop','🖥️'],['Documents','📄'],['Downloads','⬇️']];
+  const sys=[['/etc','⚙️'],['/var/log','📋'],['/tmp','🗑️']];
+  let h=`<div class="sb-head">Favoritos</div>`;
+  favs.forEach(([n,ic])=>h+=`<div class="sb-item${curDir===n?' active':''}" onclick="navTo('${n}')"><span class="sb-icon">${ic}</span>${n}</div>`);
+  h+=`<div class="sb-head">Sistema</div>`;
+  sys.forEach(([n,ic])=>h+=`<div class="sb-item${curDir===n?' active':''}" onclick="navTo('${n}')"><span class="sb-icon">${ic}</span>${n}</div>`);
+  sb.innerHTML=h;
+}
+
+// ---- FINDER ----
+function navTo(d){
+  curDir=d;
+  if(!getFS()[d]) getFS()[d]=[];
+  document.getElementById('finder-ttl').textContent=d;
+  document.getElementById('finder-path').textContent='~/'+d+'/';
+  buildSidebar(); renderDir();
+}
+function renderDir(){
+  buildSidebar();
+  const g=document.getElementById('finder-grid');
+  const items=getDir(curDir);
+  if(!items.length){g.innerHTML=`<div style="color:var(--muted);font-size:11px;text-align:center;padding:24px 0;grid-column:1/-1;font-family:var(--mono)">pasta vazia</div>`;return}
+  g.innerHTML='';
+  items.forEach(item=>{
+    const el=document.createElement('div');
+    el.className='fi-item';
+    el.onclick=()=>{document.querySelectorAll('.fi-item').forEach(f=>f.classList.remove('sel'));el.classList.add('sel')};
+    if(item.t==='folder'){
+      el.ondblclick=()=>navTo(item.n);
+      el.innerHTML=`<div class="fi-box fi-box-f">📁</div><div class="fi-lbl">${item.n}</div>`;
+    } else {
+      el.ondblclick=()=>openFileTxt(item.n,fileContents[curDir+'/'+item.n]||item.c||'');
+      el.innerHTML=`<div class="fi-box fi-box-t">📄</div><div class="fi-lbl">${item.n}</div>`;
+    }
+    g.appendChild(el);
+  });
+}
+
+// ---- DIALOG ----
+function openDlg(type){dlgType=type;document.getElementById('dlg-t').textContent=type==='folder'?'Nova Pasta':'Novo Arquivo';document.getElementById('dlg-i').value='';document.getElementById('dlg-ov').classList.add('v');setTimeout(()=>document.getElementById('dlg-i').focus(),50);hideCtx()}
+function closeDlg(){document.getElementById('dlg-ov').classList.remove('v')}
+function confirmDlg(){
+  let name=document.getElementById('dlg-i').value.trim();
+  if(!name)return;
+  if(dlgType==='file'&&!name.includes('.'))name+='.txt';
+  const dir=getDir(curDir);
+  if(dir.find(i=>i.n===name)){showNotif('Erro','Já existe!');closeDlg();return}
+  dir.push({n:name,t:dlgType==='folder'?'folder':'file',c:''});
+  if(dlgType==='folder') getFS()[name]=[];
+  closeDlg(); renderDir();
+  showNotif('Criado',(dlgType==='folder'?'📁 Pasta':'📄 Arquivo')+' "'+name+'" criado');
+}
+document.getElementById('dlg-i').addEventListener('keydown',e=>{if(e.key==='Enter')confirmDlg();if(e.key==='Escape')closeDlg()});
+
+// ---- CONTEXT MENU ----
+function showCtx(e){e.preventDefault();const m=document.getElementById('ctx');m.style.left=Math.min(e.offsetX,400)+'px';m.style.top=Math.min(e.offsetY,520)+'px';m.classList.add('v')}
+function hideCtx(){document.getElementById('ctx').classList.remove('v')}
+document.getElementById('void-root').addEventListener('click',hideCtx);
+
+// ---- EDITOR ----
+function updateLines(){
+  const ta=document.getElementById('ed-ta');
+  const lines=ta.value.split('\n');
+  document.getElementById('lns').innerHTML=lines.map((_,i)=>`<div>${i+1}</div>`).join('');
+  document.getElementById('ed-stat').textContent=`UTF-8 · LF · ${lines.length}L`;
+}
+function saveFile(){
+  const ta=document.getElementById('ed-ta');
+  let fname=document.getElementById('ed-fname').textContent;
+  if(fname==='untitled.txt'){openDlg('file');return}
+  fileContents[curDir+'/'+fname]=ta.value;
+  const item=getDir(curDir).find(i=>i.n===fname);
+  if(item)item.c=ta.value;
+  showNotif('Salvo','📄 '+fname);
+}
+
+// ---- TERMINAL ----
+const termHist=[];let histIdx=-1;
+function termKey(e){
+  const inp=document.getElementById('ti');
+  if(e.key==='Enter'){const cmd=inp.value.trim();inp.value='';if(cmd){termHist.unshift(cmd);histIdx=-1}execCmd(cmd)}
+  else if(e.key==='ArrowUp'){histIdx=Math.min(histIdx+1,termHist.length-1);inp.value=termHist[histIdx]||''}
+  else if(e.key==='ArrowDown'){histIdx=Math.max(histIdx-1,-1);inp.value=termHist[histIdx]||''}
+}
+function tPrint(html){
+  const tb=document.getElementById('tbody');
+  const il=tb.querySelector('.t-input-row');
+  const d=document.createElement('div');d.className='t-line';d.innerHTML=html;
+  tb.insertBefore(d,il);tb.scrollTop=tb.scrollHeight;
+}
+function execCmd(cmd){
+  tPrint(`<span class="t-ps">${currentUser}@void</span><span class="t-path">:~/${curDir}$ </span><span class="t-cmd">${cmd}</span>`);
+  if(!cmd)return;
+  const a=cmd.split(' ');
+  const b=a[0];
+  if(b==='help')tPrint(`<span class="t-out">ls · cd &lt;dir&gt; · mkdir &lt;n&gt; · touch &lt;n&gt; · cat &lt;f&gt; · rm &lt;n&gt; · clear · pwd · whoami · echo</span>`);
+  else if(b==='whoami')tPrint(`<span class="t-ok">${currentUser}</span>`);
+  else if(b==='pwd')tPrint(`<span class="t-out">/${curDir}</span>`);
+  else if(b==='clear'){const tb=document.getElementById('tbody');const il=tb.querySelector('.t-input-row');while(tb.firstChild!==il)tb.removeChild(tb.firstChild)}
+  else if(b==='echo')tPrint(`<span class="t-out">${a.slice(1).join(' ')}</span>`);
+  else if(b==='ls'){
+    const items=getDir(a[1]||curDir);
+    if(!items.length)tPrint(`<span class="t-out">(vazio)</span>`);
+    else tPrint(items.map(i=>i.t==='folder'?`<span class="t-ps">${i.n}/</span>`:`<span class="t-ok">${i.n}</span>`).join('  '));
+  }
+  else if(b==='cd'){
+    const d=a[1]||'Home';
+    if(getFS()[d]!==undefined){navTo(d);tPrint(`<span class="t-out">→ ${d}</span>`)}
+    else tPrint(`<span class="t-err">cd: ${d}: não encontrado</span>`);
+  }
+  else if(b==='mkdir'){
+    const n=a[1];if(!n){tPrint(`<span class="t-err">mkdir: nome?</span>`);return}
+    getDir(curDir).push({n,t:'folder'});getFS()[n]=[];
+    tPrint(`<span class="t-ok">📁 '${n}' criada</span>`);renderDir();
+  }
+  else if(b==='touch'){
+    const n=a[1]?a[1].includes('.')?a[1]:a[1]+'.txt':'file.txt';
+    getDir(curDir).push({n,t:'file',c:''});
+    tPrint(`<span class="t-ok">📄 '${n}' criado</span>`);renderDir();
+  }
+  else if(b==='cat'){
+    const n=a[1];const item=getDir(curDir).find(i=>i.n===n);
+    if(!item){tPrint(`<span class="t-err">cat: ${n}: não encontrado</span>`);return}
+    const content=fileContents[curDir+'/'+n]||item.c||'(vazio)';
+    content.split('\n').forEach(l=>tPrint(`<span class="t-out">${l||'&nbsp;'}</span>`));
+  }
+  else if(b==='rm'){
+    const n=a[1];const dir=getDir(curDir);const idx=dir.findIndex(i=>i.n===n);
+    if(idx===-1){tPrint(`<span class="t-err">rm: ${n}: não encontrado</span>`);return}
+    dir.splice(idx,1);tPrint(`<span class="t-ok">🗑 '${n}' removido</span>`);renderDir();
+  }
+  else tPrint(`<span class="t-err">void: ${b}: comando não encontrado</span>`);
+}
+
+// ---- NOTIFICATION ----
+let nTimer;
+function showNotif(t,m){
+  document.getElementById('notif-t').textContent=t;
+  document.getElementById('notif-m').textContent=m;
+  const n=document.getElementById('notif');
+  n.style.display='block';n.style.animation='fadeIn .3s ease';
+  clearTimeout(nTimer);nTimer=setTimeout(()=>n.style.display='none',3000);
+}
+</script>
