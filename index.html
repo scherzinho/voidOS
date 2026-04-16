@@ -225,11 +225,6 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000}
 
 
 /* Tools */
-.bac-tool-box{background:rgba(12,12,12,0.8);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:14px;margin-bottom:12px}
-.bac-tool-title{font-size:10px;font-weight:600;color:#7ec8e3;font-family:var(--mono);letter-spacing:1px;margin-bottom:10px}
-.bac-crypto-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center}
-.bac-crypto-btn{background:rgba(192,57,43,0.1);border:1px solid var(--border-red);border-radius:6px;padding:8px 6px;color:var(--red-b);cursor:pointer;font-size:10px;font-family:var(--mono);transition:all .12s;width:40px;text-align:center}
-.bac-crypto-btn:hover{background:rgba(192,57,43,0.25)}
 
 /* Admin */
 .bac-admin-table{width:100%;border-collapse:collapse;font-size:11px}
@@ -345,6 +340,69 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000}
   .bac-sb{width:0;overflow:hidden;display:none}
   #mb-clk{display:none}
 }
+
+/* ── BAC DASHBOARD ── */
+.bac-dash{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-bottom:20px}
+.bac-card{background:rgba(18,18,18,0.9);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:16px;transition:all .18s;cursor:pointer;position:relative;overflow:hidden}
+.bac-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--card-accent,var(--red));opacity:0.8}
+.bac-card:hover{background:rgba(25,25,25,0.95);border-color:rgba(255,255,255,0.12);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.4)}
+.bac-card-ico{font-size:24px;margin-bottom:10px}
+.bac-card-val{font-size:28px;font-weight:700;color:white;line-height:1;margin-bottom:4px}
+.bac-card-lbl{font-size:10px;color:var(--muted2);font-family:var(--mono);text-transform:uppercase;letter-spacing:1px}
+.bac-card-sub{font-size:10px;color:var(--muted);margin-top:6px}
+.bac-card.red-card{--card-accent:var(--red-b)}
+.bac-card.green-card{--card-accent:#50fa7b}
+.bac-card.blue-card{--card-accent:#7ec8e3}
+.bac-card.amber-card{--card-accent:#febc2e}
+.bac-card.purple-card{--card-accent:#bd93f9}
+
+/* Doc table */
+.bac-doc-table{width:100%;border-collapse:collapse}
+.bac-doc-table th{font-size:9px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px;padding:8px 10px;border-bottom:1px solid rgba(255,255,255,0.06);text-align:left;font-family:var(--mono)}
+.bac-doc-table td{padding:10px;border-bottom:1px solid rgba(255,255,255,0.04);font-size:11px;color:var(--text);vertical-align:middle}
+.bac-doc-table tr:hover td{background:rgba(192,57,43,0.04)}
+.bac-doc-table tr.locked td{opacity:0.4}
+.bac-doc-table tr{cursor:pointer}
+.bac-lvl-pip{display:inline-flex;align-items:center;gap:4px;font-size:9px;font-weight:700;padding:2px 8px;border-radius:20px;font-family:var(--mono)}
+
+/* Target cards new */
+.bac-tg{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.bac-tg-card{background:rgba(15,15,15,0.95);border:1px solid rgba(255,255,255,0.06);border-radius:10px;overflow:hidden;transition:all .15s;position:relative}
+.bac-tg-card:hover{border-color:rgba(192,57,43,0.3);transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,0.4)}
+.bac-tg-img{width:100%;height:120px;object-fit:cover;filter:grayscale(60%);transition:filter .2s}
+.bac-tg-card:hover .bac-tg-img{filter:grayscale(0%)}
+.bac-tg-noimag{height:80px;background:rgba(192,57,43,0.08);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:28px}
+.bac-tg-info{padding:10px}
+.bac-tg-name{font-size:12px;font-weight:600;color:white;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bac-tg-lvl{position:absolute;top:6px;right:6px;background:rgba(0,0,0,0.7);border-radius:4px;padding:2px 5px;font-size:8px;font-family:var(--mono);font-weight:700}
+.bac-tg-add{border:2px dashed rgba(255,255,255,0.1);display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:140px;gap:8px;color:var(--muted);font-size:11px;font-family:var(--mono);transition:all .15s;cursor:pointer;border-radius:10px}
+.bac-tg-add:hover{border-color:rgba(192,57,43,0.4);color:var(--red-b);background:rgba(192,57,43,0.05)}
+
+/* Permissions grid */
+.perm-grid{display:grid;grid-template-columns:1fr;gap:8px}
+.perm-row{background:rgba(18,18,18,0.9);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:14px;display:flex;align-items:center;gap:14px}
+.perm-av{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0}
+.perm-info{flex:1;min-width:0}
+.perm-name{font-size:12px;font-weight:600;color:white}
+.perm-email{font-size:10px;color:var(--muted);font-family:var(--mono)}
+.perm-controls{display:flex;align-items:center;gap:8px}
+.perm-lvl-btn{width:28px;height:28px;border-radius:6px;border:1px solid rgba(255,255,255,0.1);background:none;color:var(--muted2);cursor:pointer;font-size:14px;transition:all .12s;display:flex;align-items:center;justify-content:center}
+.perm-lvl-btn:hover{border-color:var(--red-b);color:var(--red-b)}
+.perm-lvl-display{font-size:13px;font-weight:700;color:white;min-width:22px;text-align:center;font-family:var(--mono)}
+.perm-lvl-badge{font-size:9px;padding:2px 7px;border-radius:10px;font-family:var(--mono);font-weight:600}
+
+/* Section header with + btn */
+.bac-sec-header{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.bac-sec-h-title{font-size:13px;font-weight:600;color:white}
+.bac-add-btn{width:28px;height:28px;border-radius:8px;background:rgba(192,57,43,0.15);border:1px solid var(--border-red);color:var(--red-b);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:all .12s;line-height:1;margin-left:auto}
+.bac-add-btn:hover{background:rgba(192,57,43,0.3);border-color:var(--red-b)}
+
+/* Modal inside BAC */
+.bac-modal-ov{position:absolute;inset:0;background:rgba(0,0,0,0.75);z-index:150;display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px);border-radius:12px}
+.bac-modal-ov.show{display:flex}
+.bac-modal{background:rgba(18,18,18,0.99);border:1px solid rgba(192,57,43,0.2);border-radius:12px;padding:20px;width:min(340px,90%);box-shadow:0 24px 48px rgba(0,0,0,0.8)}
+.bac-modal-title{font-size:13px;font-weight:700;color:white;margin-bottom:14px}
+.bac-modal-btns{display:flex;gap:8px;justify-content:flex-end;margin-top:12px}
 </style>
 </head>
 <body>
@@ -488,6 +546,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000}
     <div class="ivzoom"><button class="ivzb" onclick="ivZoom(0.8)">−</button><button class="ivzb" onclick="ivReset()">⊙</button><button class="ivzb" onclick="ivZoom(1.25)">+</button></div>
   </div>
   <input type="file" id="iv-file-input" accept="image/*" onchange="ivFileInput(event)"/>
+<input type="file" id="bac-logo-input" accept="image/png,image/jpeg,image/webp" style="display:none" onchange="bacLogoUpload(event)"/>
 </div>
 
 <!-- NOTIF PANEL -->
@@ -514,13 +573,17 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000}
   </div>
   <div class="bac-body">
     <div class="bac-sb">
-      <div class="bac-logo"><div class="bac-logo-txt">B·A·C</div><div class="bac-logo-sub">DATABASE v2.0</div></div>
-      <div class="bac-mi act" onclick="bacNav('docs',this)"><span class="bac-mi-ico">📁</span>Arquivos</div>
+      <div class="bac-logo">
+        <div id="bac-logo-img" onclick="document.getElementById('bac-logo-input').click()" title="Clique para trocar o ícone" style="cursor:pointer" style="width:52px;height:52px;border-radius:12px;background:linear-gradient(145deg,rgba(192,57,43,0.4),rgba(80,5,5,0.9));border:1px solid var(--border-red);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 8px">🛡️</div>
+        <div class="bac-logo-txt">B·A·C</div>
+        <div class="bac-logo-sub">DATABASE v2.0</div>
+      </div>
+      <div class="bac-mi act" onclick="bacNav('overview',this)"><span class="bac-mi-ico">📊</span>Overview</div>
+      <div class="bac-mi" onclick="bacNav('docs',this)"><span class="bac-mi-ico">📁</span>Arquivos</div>
       <div class="bac-mi" onclick="bacNav('targets',this)"><span class="bac-mi-ico">🎯</span>Blacklist</div>
-      <div class="bac-mi" onclick="bacNav('tools',this)"><span class="bac-mi-ico">🛠️</span>Ferramentas</div>
+      <div class="bac-mi" onclick="bacNav('perms',this)"><span class="bac-mi-ico">🔑</span>Permissões</div>
       <div class="bac-mi" id="bac-admin-btn" onclick="bacNav('admin',this)" style="display:none"><span class="bac-mi-ico">⚠️</span>Comando</div>
-      <div class="bac-mi" onclick="bacNav('new-doc',this)"><span class="bac-mi-ico">+</span>Nova Intel</div>
-      <div class="bac-logout" onclick="doLogout()">← Desconectar</div>
+      <div class="bac-logout" onclick="doLogout()">← Sair</div>
     </div>
     <div class="bac-main">
       <div class="bac-topbar">
@@ -532,34 +595,76 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000}
       </div>
       <div class="bac-content">
 
-        <!-- DOCS -->
-        <div class="bac-section show" id="bac-docs">
-          <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
-            <button class="fab act" id="bac-cat-br" onclick="bacLoadDocs('NACIONAL')">🇧🇷 Nacional</button>
-            <button class="fab" id="bac-cat-int" onclick="bacLoadDocs('INTERNACIONAL')">🌎 Internacional</button>
-            <button class="fab" onclick="bacLoadDocs('')">Todos</button>
+        <!-- OVERVIEW DASHBOARD -->
+        <div class="bac-section show" id="bac-overview">
+          <div class="bac-dash" id="bac-dash-cards">
+            <div class="bac-card red-card"><div class="bac-card-ico">📁</div><div class="bac-card-val" id="bc-docs">—</div><div class="bac-card-lbl">Documentos</div><div class="bac-card-sub">arquivos ativos</div></div>
+            <div class="bac-card amber-card"><div class="bac-card-ico">🎯</div><div class="bac-card-val" id="bc-targets">—</div><div class="bac-card-lbl">Alvos</div><div class="bac-card-sub">na blacklist</div></div>
+            <div class="bac-card blue-card"><div class="bac-card-ico">👥</div><div class="bac-card-val" id="bc-ops">—</div><div class="bac-card-lbl">Operadores</div><div class="bac-card-sub">cadastrados</div></div>
+            <div class="bac-card green-card"><div class="bac-card-ico">🔓</div><div class="bac-card-val" id="bc-lvl">—</div><div class="bac-card-lbl">Seu Nível</div><div class="bac-card-sub" id="bc-lvl-sub">acesso</div></div>
           </div>
-          <div id="bac-doc-list"></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div style="background:rgba(18,18,18,0.9);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:16px">
+              <div style="font-size:11px;font-weight:600;color:var(--muted2);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;font-family:var(--mono)">Últimos Documentos</div>
+              <div id="bac-recent-docs" style="display:flex;flex-direction:column;gap:8px"></div>
+            </div>
+            <div style="background:rgba(18,18,18,0.9);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:16px">
+              <div style="font-size:11px;font-weight:600;color:var(--muted2);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;font-family:var(--mono)">Alvos Ativos</div>
+              <div id="bac-recent-targets" style="display:flex;flex-direction:column;gap:8px"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DOCS -->
+        <div class="bac-section" id="bac-docs">
+          <div class="bac-sec-header">
+            <div class="bac-sec-h-title">Arquivos Classificados</div>
+            <div style="display:flex;gap:6px;margin-left:auto">
+              <button class="fab" onclick="bacLoadDocs('NACIONAL')" id="bac-cat-br">🇧🇷 Nacional</button>
+              <button class="fab" onclick="bacLoadDocs('INTERNACIONAL')" id="bac-cat-int">🌎 Internacional</button>
+              <button class="fab" onclick="bacLoadDocs('')">Todos</button>
+              <button class="bac-add-btn" onclick="bacNav('new-doc',null)" title="Novo documento">+</button>
+            </div>
+          </div>
+          <div style="overflow-x:auto">
+            <table class="bac-doc-table">
+              <thead><tr><th style="width:36px"></th><th>Título</th><th>Categoria</th><th>Nível</th><th>Local</th><th>Autor</th></tr></thead>
+              <tbody id="bac-doc-list"></tbody>
+            </table>
+          </div>
         </div>
 
         <!-- TARGETS -->
         <div class="bac-section" id="bac-targets">
-          <div class="bac-target-grid" id="bac-target-grid"></div>
+          <div class="bac-sec-header">
+            <div class="bac-sec-h-title">Blacklist — Alvos Prioritários</div>
+            <button class="bac-add-btn" onclick="bacAddTarget()" title="Novo alvo">+</button>
+          </div>
+          <div class="bac-tg" id="bac-target-grid"></div>
+        </div>
+
+        <!-- PERMS -->
+        <div class="bac-section" id="bac-perms">
+          <div class="bac-sec-header">
+            <div class="bac-sec-h-title">Permissões de Acesso</div>
+          </div>
+          <div class="perm-grid" id="perm-grid"></div>
         </div>
 
         <!-- ADMIN -->
         <div class="bac-section" id="bac-admin">
-          <div style="background:rgba(192,57,43,0.05);border:1px solid rgba(192,57,43,0.2);border-radius:8px;padding:14px;margin-bottom:16px">
-            <div style="font-size:11px;font-weight:600;color:var(--red-b);margin-bottom:10px;font-family:var(--mono)">NOVO OPERADOR</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-              <input type="text" class="void-input" id="ba-user" placeholder="Usuário" style="margin:0"/>
-              <input type="text" class="void-input" id="ba-pass" placeholder="Senha" style="margin:0"/>
+          <div class="bac-sec-header"><div class="bac-sec-h-title">Painel de Comando — Nível 5</div></div>
+          <div style="background:rgba(192,57,43,0.05);border:1px solid rgba(192,57,43,0.15);border-radius:10px;padding:16px;margin-bottom:16px">
+            <div style="font-size:11px;font-weight:600;color:var(--red-b);margin-bottom:12px;font-family:var(--mono);letter-spacing:1px">+ NOVO OPERADOR</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+              <input type="text" class="void-input" id="ba-user" placeholder="Nome de usuário" style="margin:0"/>
+              <input type="text" class="void-input" id="ba-pass" placeholder="Senha inicial" style="margin:0"/>
               <input type="text" class="void-input" id="ba-email" placeholder="Email" style="margin:0"/>
-              <select class="void-select" id="ba-lvl" style="margin:0"><option value="1">Nível 1</option><option value="2">Nível 2</option><option value="3">Nível 3</option><option value="4">Nível 4</option><option value="5">Nível 5 (Admin)</option></select>
+              <select class="void-select" id="ba-lvl" style="margin:0"><option value="1">Nível 1 — Básico</option><option value="2">Nível 2 — Intermediário</option><option value="3">Nível 3 — Avançado</option><option value="4">Nível 4 — Restrito</option><option value="5">Nível 5 — Comando</option></select>
             </div>
-            <div class="row-btns"><button class="void-btn" onclick="bacCriarOp()">Cadastrar</button></div>
+            <div class="row-btns"><button class="void-btn" onclick="bacCriarOp()">Cadastrar Operador</button></div>
           </div>
-          <table class="bac-admin-table"><thead><tr><th>Operador</th><th>Nível</th><th>Ação</th></tr></thead><tbody id="bac-admin-tbody"></tbody></table>
+          <table class="bac-admin-table"><thead><tr><th>Operador</th><th>Email</th><th>Nível BAC</th><th>Ação</th></tr></thead><tbody id="bac-admin-tbody"></tbody></table>
         </div>
 
         <!-- NEW DOC -->
@@ -773,7 +878,7 @@ async function enterOS(){
   bacUserLevel=parseInt(CP?.bac_level)||1;
   document.getElementById('bac-user-badge').textContent='NVL '+bacUserLevel+' · '+(CP?.username||'');
   if(bacUserLevel>=5)document.getElementById('bac-admin-btn').style.display='flex';
-  curDir='Home';openW('fw');await renderDir();
+  bacRestoreLogo();curDir='Home';openW('fw');await renderDir();
   toast('VoidOS','Bem-vindo, '+(CP?.username||selName)+'!','green');
 }
 async function doLogout(){
@@ -831,8 +936,9 @@ async function trashItem(id){
 }
 async function restoreItem(id,prev){await sb.from('fs_items').update({parent:prev||'Home',prev_parent:null}).eq('id',id).eq('user_id',CU.id)}
 async function updateContent(id,content){
-  const{error}=await sb.from('fs_items').update({content}).eq('id',id).eq('user_id',CU.id);
-  return!error;
+  const{data,error}=await sb.from('fs_items').update({content}).eq('id',id).eq('user_id',CU.id).select();
+  if(error){console.error('Save error:',error);return false;}
+  return true;
 }
 async function updateShared(id,shared_with_ids){
   await sb.from('fs_items').update({shared:shared_with_ids.length>0,shared_with:JSON.stringify(shared_with_ids)}).eq('id',id).eq('user_id',CU.id);
@@ -951,12 +1057,14 @@ async function confirmDlg(){
   if(created){
     await renderDir();
     toast('Criado',(dlgType==='folder'?'📁 ':'📄 ')+name,'green');
-    // if file was created and editor open, link it
-    if(dlgType==='file'&&document.getElementById('ew').classList.contains('show')&&!editFileId){
-      editFileId=created.id;editFileName=created.name;
+    if(dlgType==='file'){
+      // always link new file to editor and save current content
+      editFileId=created.id;editFileName=created.name;shareFileId=created.id;
       document.getElementById('ed-fname').textContent=created.name;
       document.getElementById('share-btn').style.display='block';
-      shareFileId=created.id;
+      // save whatever is in editor right now
+      const content=document.getElementById('eta').value;
+      if(content)await updateContent(created.id,content);
     }
   } else toast('Erro','Não foi possível criar','red');
 }
@@ -1032,13 +1140,11 @@ function updateLines(){
 }
 async function saveFile(){
   const ta=document.getElementById('eta');
-  if(!editFileId){
-    // create new file then save
-    openDlg('file');return;
-  }
-  const ok=await updateContent(editFileId,ta.value);
-  if(ok)toast('Salvo','📄 '+editFileName,'green');
-  else toast('Erro','Falha ao salvar','red');
+  if(!editFileId){openDlg('file');return;}
+  const content=ta.value;
+  const ok=await updateContent(editFileId,content);
+  if(ok){toast('Salvo','📄 '+(editFileName||'arquivo'),'green');}
+  else toast('Erro','Falha ao salvar. Verifique a conexão.','red');
 }
 function copyContent(){navigator.clipboard?.writeText(document.getElementById('eta').value).catch(()=>{});toast('Copiado','Conteúdo copiado!','blue');}
 
@@ -1154,6 +1260,96 @@ async function sendMsg(){
 // BAC APP
 // ═══════════════════════════════════════
 const BAC_LVL_COLS={1:'#00E676',2:'#00B0FF',3:'#FFD700',4:'#FF6D00',5:'#FF1744'};
+
+// ── BAC OVERVIEW
+async function bacLoadOverview(){
+  const[docsR,targetsR,propsR]=await Promise.all([
+    sb.from('bac_docs').select('*',{count:'exact',head:true}),
+    sb.from('bac_targets').select('*',{count:'exact',head:true}),
+    sb.from('profiles').select('*',{count:'exact',head:true})
+  ]);
+  document.getElementById('bc-docs').textContent=docsR.count??0;
+  document.getElementById('bc-targets').textContent=targetsR.count??0;
+  document.getElementById('bc-ops').textContent=propsR.count??0;
+  document.getElementById('bc-lvl').textContent=bacUserLevel;
+  const lvlLabels={1:'Básico',2:'Intermediário',3:'Avançado',4:'Restrito',5:'Comando'};
+  document.getElementById('bc-lvl-sub').textContent=lvlLabels[bacUserLevel]||'';
+  const rd=document.getElementById('bac-recent-docs');rd.innerHTML='';
+  const{data:rdocs}=await sb.from('bac_docs').select('titulo,nivel,categoria').order('created_at',{ascending:false}).limit(4);
+  (rdocs||[]).forEach(d=>{
+    const col=BAC_LVL_COLS[d.nivel]||'#fff';
+    const div=document.createElement('div');
+    div.style.cssText='display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.04)';
+    div.innerHTML=`<div style="width:6px;height:6px;border-radius:50%;background:${col};flex-shrink:0"></div><div style="font-size:11px;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${d.titulo}</div><span style="font-size:9px;padding:1px 6px;border-radius:10px;background:${col}22;color:${col};font-family:var(--mono)">NVL ${d.nivel}</span>`;
+    rd.appendChild(div);
+  });
+  if(!rdocs||!rdocs.length)rd.innerHTML='<div style="color:var(--muted);font-size:11px;font-family:var(--mono)">Sem documentos</div>';
+  const rt=document.getElementById('bac-recent-targets');rt.innerHTML='';
+  const{data:rtg}=await sb.from('bac_targets').select('nome,status,nivel').order('created_at',{ascending:false}).limit(4);
+  (rtg||[]).forEach(t=>{
+    const stClass=t.status==='KIA'||t.status==='ELIMINADO'?'st-kia':t.status==='CAPTURADO'?'st-capturado':'st-ativo';
+    const div=document.createElement('div');
+    div.style.cssText='display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.04)';
+    div.innerHTML=`<span style="font-size:14px">🎯</span><div style="font-size:11px;color:var(--text);flex:1">${t.nome}</div><span class="bac-target-status ${stClass}" style="font-size:9px;font-family:var(--mono)">${t.status}</span>`;
+    rt.appendChild(div);
+  });
+  if(!rtg||!rtg.length)rt.innerHTML='<div style="color:var(--muted);font-size:11px;font-family:var(--mono)">Sem alvos</div>';
+}
+
+// ── BAC PERMISSIONS
+async function bacLoadPerms(){
+  const grid=document.getElementById('perm-grid');
+  grid.innerHTML='<div style="color:var(--muted);font-size:11px;font-family:var(--mono)">Carregando...</div>';
+  const{data}=await sb.from('profiles').select('*').order('username');
+  grid.innerHTML='';
+  (data||[]).forEach(p=>{
+    const col=p.avatar_color||'#c0392b';
+    const lvl=p.bac_level||1;
+    const lvlCols={1:'#50fa7b',2:'#7ec8e3',3:'#febc2e',4:'#FF6D00',5:'#ff5f56'};
+    const lvlNames={1:'Básico',2:'Intermediário',3:'Avançado',4:'Restrito',5:'Comando'};
+    const lc=lvlCols[lvl]||'#fff';
+    const isMe=p.id===CU.id;
+    const canEdit=bacUserLevel>=5&&!isMe;
+    const row=document.createElement('div');row.className='perm-row';
+    row.innerHTML=`
+      <div class="perm-av" style="background:linear-gradient(145deg,${dimCol(col)},${col})">${p.username.slice(0,2).toUpperCase()}</div>
+      <div class="perm-info">
+        <div class="perm-name">${p.username}${isMe?' <span style="font-size:9px;color:var(--muted)">(você)</span>':''}</div>
+        <div class="perm-email">${p.email||''}</div>
+      </div>
+      <div class="perm-controls">
+        ${canEdit?`<button class="perm-lvl-btn" onclick="bacChangeLvl('${p.id}',${lvl},-1)">−</button>`:''}
+        <div class="perm-lvl-display" style="color:${lc}">${lvl}</div>
+        ${canEdit?`<button class="perm-lvl-btn" onclick="bacChangeLvl('${p.id}',${lvl},1)">+</button>`:''}
+        <div class="perm-lvl-badge" style="background:${lc}22;color:${lc}">${lvlNames[lvl]||''}</div>
+      </div>`;
+    grid.appendChild(row);
+  });
+  if(!data||!data.length)grid.innerHTML='<div style="color:var(--muted);font-size:11px">Nenhum operador</div>';
+}
+async function bacChangeLvl(uid,cur,delta){
+  const newLvl=Math.max(1,Math.min(5,cur+delta));
+  await sb.from('profiles').update({bac_level:newLvl}).eq('id',uid);
+  await bacLoadPerms();
+  toast('Permissão','Nível → '+newLvl,'green');
+}
+
+// ── BAC LOGO UPLOAD
+function bacLogoUpload(e){
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    const src=ev.target.result;
+    const el=document.getElementById('bac-logo-img');
+    el.innerHTML=`<img src="${src}" style="width:100%;height:100%;object-fit:cover;border-radius:12px">`;
+    try{localStorage.setItem('bac-logo',src);}catch(e){}
+  };
+  reader.readAsDataURL(file);e.target.value='';
+}
+function bacRestoreLogo(){
+  try{const s=localStorage.getItem('bac-logo');if(s){document.getElementById('bac-logo-img').innerHTML=`<img src="${s}" style="width:100%;height:100%;object-fit:cover;border-radius:12px">`;}}catch(e){}
+}
+
 function bacNav(sec,el){
   document.querySelectorAll('.bac-mi').forEach(m=>m.classList.remove('act'));
   if(el)el.classList.add('act');
@@ -1167,36 +1363,41 @@ function bacNav(sec,el){
 }
 async function bacLoadDocs(cat){
   bacCurCat=cat||bacCurCat;
-  const list=document.getElementById('bac-doc-list');
-  list.innerHTML=`<div style="color:var(--muted);font-size:11px;font-family:var(--mono);padding:20px 0">Carregando...</div>`;
+  const tbody=document.getElementById('bac-doc-list');
+  tbody.innerHTML=`<tr><td colspan="6" style="color:var(--muted);font-size:11px;font-family:var(--mono);padding:20px;text-align:center">Carregando...</td></tr>`;
   let q=sb.from('bac_docs').select('*').order('created_at',{ascending:false});
   if(cat)q=q.eq('categoria',cat);
   const{data}=await q;
   const docs=data||[];
-  if(!docs.length){list.innerHTML=`<div style="color:var(--muted);font-size:11px;font-family:var(--mono);padding:20px 0">Nenhum documento</div>`;return;}
-  list.innerHTML='';
+  if(!docs.length){tbody.innerHTML=`<tr><td colspan="6" style="color:var(--muted);font-size:11px;padding:20px;text-align:center;font-family:var(--mono)">Nenhum documento</td></tr>`;return;}
+  tbody.innerHTML='';
   docs.forEach(doc=>{
     const accessible=bacUserLevel>=doc.nivel;
     const col=BAC_LVL_COLS[doc.nivel]||'#fff';
-    const div=document.createElement('div');
-    div.className='bac-doc-card lvl-'+doc.nivel+(accessible?'':' locked');
-    div.style.setProperty('--lvl-col',col);
+    const tr=document.createElement('tr');
+    if(!accessible)tr.classList.add('locked');
     const ico=doc.icone&&!doc.icone.includes('http')?doc.icone:'📄';
-    div.innerHTML=`<div class="bac-doc-icon">${accessible&&doc.icone&&doc.icone.includes('http')?`<img src="${doc.icone}" style="width:100%;height:100%;object-fit:cover;border-radius:6px">`:ico}</div><div class="bac-doc-info"><div class="bac-doc-title">${accessible?doc.titulo:'[CLASSIFICADO]'}</div><div class="bac-doc-meta">${accessible?`${doc.local||'—'} · ${doc.hora||'—'} · ${doc.autor||'—'}`:' NVL '+doc.nivel+' necessário'}</div></div><div class="bac-lvl-badge lbg-${doc.nivel}">NVL ${doc.nivel}</div>`;
-    if(accessible)div.onclick=()=>bacOpenDoc(doc);
-    list.appendChild(div);
+    tr.innerHTML=`
+      <td style="width:36px"><div style="width:28px;height:28px;border-radius:6px;background:${col}22;display:flex;align-items:center;justify-content:center;font-size:14px">${accessible?ico:'🔒'}</div></td>
+      <td style="font-weight:500;color:${accessible?'white':'var(--muted)'}">${accessible?doc.titulo:'[CLASSIFICADO]'}</td>
+      <td><span style="font-size:9px;background:rgba(255,255,255,0.07);padding:2px 7px;border-radius:10px;font-family:var(--mono)">${doc.categoria||'—'}</span></td>
+      <td><div class="bac-lvl-pip lbg-${doc.nivel}" style="background:${col}22;color:${col}">NVL ${doc.nivel}</div></td>
+      <td style="color:var(--muted);font-size:10px;font-family:var(--mono)">${accessible?doc.local||'—':'—'}</td>
+      <td style="color:var(--muted);font-size:10px">${accessible?doc.autor||'—':'—'}</td>`;
+    if(accessible)tr.onclick=()=>bacOpenDoc(doc);
+    tbody.appendChild(tr);
   });
 }
 function bacFilterDocs(){
   const q=document.getElementById('bac-search').value.toLowerCase();
-  document.querySelectorAll('.bac-doc-card').forEach(c=>{c.style.display=c.textContent.toLowerCase().includes(q)?'flex':'none';});
+  document.querySelectorAll('#bac-doc-list tr').forEach(r=>{r.style.display=r.textContent.toLowerCase().includes(q)?'':'none';});
 }
 function bacOpenDoc(doc){
   const reader=document.getElementById('bac-reader');
   const col=BAC_LVL_COLS[doc.nivel]||'#fff';
   document.getElementById('bac-r-title').textContent=doc.titulo;
   document.getElementById('bac-r-title').style.color=col;
-  document.getElementById('bac-r-meta').textContent=`LOCAL: ${doc.local||'—'} · HORA: ${doc.hora||'—'} · AUTOR: ${doc.autor||'—'} · NVL ${doc.nivel}`;
+  document.getElementById('bac-r-meta').innerHTML=`<span style="background:${col}22;color:${col};padding:2px 7px;border-radius:10px;font-size:9px;font-family:var(--mono)">NVL ${doc.nivel}</span> &nbsp;LOCAL: ${doc.local||'—'} &nbsp;·&nbsp; HORA: ${doc.hora||'—'} &nbsp;·&nbsp; AUTOR: ${doc.autor||'—'}`;
   document.getElementById('bac-r-body').textContent=doc.conteudo||'Sem conteúdo.';
   reader.classList.add('show');
 }
@@ -1234,17 +1435,15 @@ async function bacAddTarget(){
 
 
 
-function bacEncode(){const t=document.getElementById('bac-ti').value;if(t)document.getElementById('bac-to').value=btoa(unescape(encodeURIComponent(t)));}
-function bacDecode(){try{document.getElementById('bac-to').value=decodeURIComponent(escape(atob(document.getElementById('bac-ti').value)));}catch{document.getElementById('bac-to').value='ERRO: input inválido';}}
-function bacBinary(){const inp=document.getElementById('bac-bin-i').value;let out='';for(let i=0;i<inp.length;i++)out+=inp[i].charCodeAt(0).toString(2).padStart(8,'0')+' ';document.getElementById('bac-bin-o').textContent=out;}
 
 async function bacLoadAdmin(){
   if(bacUserLevel<5)return;
   const{data}=await sb.from('profiles').select('*').order('username');
   const tbody=document.getElementById('bac-admin-tbody');tbody.innerHTML='';
   (data||[]).forEach(p=>{
+    const lvl=p.bac_level||1;const lvlCols={1:'#50fa7b',2:'#7ec8e3',3:'#febc2e',4:'#FF6D00',5:'#ff5f56'};
     const tr=document.createElement('tr');
-    tr.innerHTML=`<td>${p.username}</td><td><select class="bac-lvl-sel" onchange="bacSetLevel('${p.id}',this.value)">${[1,2,3,4,5].map(n=>`<option value="${n}" ${(p.bac_level||1)==n?'selected':''}>${n}</option>`).join('')}</select></td><td style="color:var(--muted);font-size:10px;font-family:var(--mono)">${p.email}</td>`;
+    tr.innerHTML=`<td style="font-weight:500">${p.username}</td><td style="font-size:10px;color:var(--muted);font-family:var(--mono)">${p.email||'—'}</td><td><select class="bac-lvl-sel" style="color:${lvlCols[lvl]}" onchange="bacSetLevel('${p.id}',this.value)">${[1,2,3,4,5].map(n=>`<option value="${n}" ${lvl==n?'selected':''}>${n}</option>`).join('')}</select></td><td><button style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:11px" onclick="bacLoadPerms()">→ Perms</button></td>`;
     tbody.appendChild(tr);
   });
 }
@@ -1264,8 +1463,8 @@ async function bacCriarOp(){
 }
 async function bacSalvarDoc(){
   const titulo=document.getElementById('nd-title').value.trim();
-  if(!titulo)return;
-  await sb.from('bac_docs').insert({
+  if(!titulo){toast('Erro','Informe o título','red');return;}
+  const{error}=await sb.from('bac_docs').insert({
     titulo,conteudo:document.getElementById('nd-body').value,
     nivel:parseInt(document.getElementById('nd-lvl').value),
     categoria:document.getElementById('nd-cat').value,
@@ -1274,9 +1473,10 @@ async function bacSalvarDoc(){
     hora:document.getElementById('nd-hora').value,
     icone:document.getElementById('nd-icon').value,
   });
+  if(error){toast('Erro',error.message,'red');return;}
   toast('Arquivado','📁 '+titulo,'green');
   ['nd-title','nd-body','nd-local','nd-hora','nd-icon'].forEach(id=>document.getElementById(id).value='');
-  bacNav('docs',null);
+  bacNav('docs',document.querySelector('.bac-mi:nth-child(3)'));
 }
 
 // ═══════════════════════════════════════
